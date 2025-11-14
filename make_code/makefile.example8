@@ -1,0 +1,8 @@
+# filename: makefile.example8
+
+all:
+	$(MAKE) -C example8_dir
+	
+.PHONY: clean
+clean:
+	$(MAKE) clean -C example8_dir
