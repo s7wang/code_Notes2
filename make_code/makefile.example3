@@ -1,0 +1,19 @@
+# filename: makefile.example3
+
+vpath %.c src
+vpath %.h src:include
+
+CC := gcc
+CFLAGS := -Wall -g -Iinclude -Isrc
+
+OBJS := foo.o foo1.o foo2.o main.o
+TARGET := example3
+
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $^
+
+%.o: %.c %.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -f $(OBJS) $(TARGET)

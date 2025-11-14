@@ -1,0 +1,23 @@
+# filename: makefile.example5
+
+SOURCES := foo.c foo1.c foo2.c main.c
+SOURCES := $(addprefix src/,$(SOURCES))
+
+DEPS := $(SOURCES:.c=.d)
+
+CC := gcc
+CFLAGS := -Wall -g -Iinclude -Isrc
+
+# 默认目标
+all: clean $(DEPS)
+
+# 正确的模式规则
+src/%.d: src/%.c
+	@set -e; rm -rf $@; \
+	$(CC) -MM $(CFLAGS) $< > $@.$$$$; \
+	sed -E "s|^([^:]+):|src/\1 $@ :|" < $@.$$$$ > $@; \
+	rm -f $@.$$$$; cat $@
+	
+.PHONY: clean
+clean:
+	rm -rf $(DEPS);

@@ -1,0 +1,10 @@
+# filename: makefile.example1
+src/foo.o : src/foo.c src/defs.h 
+	cc -c -g -o src/foo.o src/foo.c
+
+clean:
+	rm -rf src/*.o
+# 直接执行 make -f makefile.example1 进行编译
+# 或执行 make -f makefile.example1 clean清除编译结果
+
+#或通过统一的编译文件直接执行make example1 和 make example1-clean

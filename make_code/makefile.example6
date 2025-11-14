@@ -1,0 +1,45 @@
+# filename: makefile.example6
+
+# ==========================
+# Makefile at project root
+# ==========================
+
+# 编译器和参数
+CC := gcc
+CFLAGS := -Wall -g -I./src -I./include
+
+# 源文件列表
+SRCS := src/foo.c src/foo1.c src/foo2.c src/main.c
+OBJS := $(SRCS:.c=.o)
+DEPS := $(SRCS:.c=.d)
+
+# 可执行文件
+TARGET := src/example6
+
+# --------------------------
+# 默认目标
+# --------------------------
+all: $(TARGET)
+
+# --------------------------
+# 链接可执行文件
+# --------------------------
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $^
+
+# --------------------------
+# 编译 .c -> .o
+# --------------------------
+# 自动包含依赖
+#-include $(DEPS)
+
+# 通用规则：.c -> .o
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# --------------------------
+# 清理
+# --------------------------
+.PHONY: clean
+clean:
+	rm -f $(OBJS) $(TARGET)

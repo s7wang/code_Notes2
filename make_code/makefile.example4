@@ -1,0 +1,13 @@
+# filename: makefile.example4
+
+TARGETS := bigoutput littleoutput
+
+all: $(TARGETS)
+
+# 多目标规则
+$(TARGETS): text.g
+	@echo "Generating all targets from $< ..."
+	@echo "$(subst output,,$@) content from $<" | tee $@
+
+clean:
+	rm -f $(TARGETS)

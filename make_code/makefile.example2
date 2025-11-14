@@ -1,0 +1,22 @@
+# filename: makefile.example2
+all: src/print src/print2 src/print3
+
+src/print: src/*.c
+	@echo $? | tee $@
+
+src/print2: src/foo?.c
+	@echo $? | tee $@
+
+# 定义依赖文件变量
+SRC3 := $(wildcard src/[abcdefos][abcdefos][abcdefos].c) \
+        $(wildcard src/[abcdefos][abcdefos][abcdefos][abcdefos].h)
+# 规则
+src/print3: $(SRC3) src/[main][main][main][mian].c
+	@echo $^ | tee $@
+
+clean:
+	rm -rf src/print*
+# 直接执行 make -f makefile.example2 进行编译
+# 或执行 make -f makefile.example2 clean清除编译结果
+
+#或通过统一的编译文件直接执行make example1 和 make example2-clean
