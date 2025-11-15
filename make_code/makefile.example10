@@ -1,0 +1,94 @@
+# filename: makefile.example10
+
+# 4.2.1 Variable suffix replacement, such as replacing .o with .c
+foo := a.o b.o c.o
+# Method 1
+bar_1 := $(foo:.o=.c)
+# Method 2
+bar_2 := $(foo:%.o=%.c)
+
+# 4.2.2 Example of treating variable values as variables again in a makefile.
+# Method 1
+x_0 = y_0
+y_0 = z_0
+a_0 := $($(x_0))
+
+x_1 = variable1
+variable2 := Hello_1
+y_1 = $(subst 1,2,$(x_1))
+z_1 = y_1
+a_1 := $($($(z_1)))
+
+first_second = Hello_2
+a_2 = first
+b_2 = second
+all_2 = $($(a_2)_$(b_2))
+
+# Method 2
+define apply_func
+$(1) $(2)
+endef
+# -----------------------------------
+# 1) 根据 do_sort 设定 func
+# -----------------------------------
+do_sort = 1
+bar_22 := a d b g q c
+func =
+ifdef do_sort
+func := sort
+else
+func := strip
+endif
+
+foo_define_do_sort = $(call apply_func,$(func),$(bar_22))
+
+# -----------------------------------
+# 2) 删除 do_sort 后 func 自动变为 strip
+# -----------------------------------
+undefine do_sort
+func =
+ifdef do_sort
+func := sort
+else
+func := strip
+endif
+
+foo_undefine_do_sort = $(call apply_func,$(func),$(bar_22))
+fun_test = sort
+foo_test_fun_test = $($(fun_test) $(bar_22)) 
+foo_test_sort = $(sort $(bar_22)) 
+# -----------------------------------
+# 3) 自动搜集 src/*.c
+# -----------------------------------
+src_dir := src
+$(src_dir)_sources := $(wildcard $(src_dir)/*.c)
+
+# -----------------------------------
+# 4) define + eval 正确生成 src_print 规则
+# -----------------------------------
+define print_template
+$(1)_print:
+	@echo "[$(1)_sources]: $($(1)_sources)"; \
+	echo "-----------------------------------------------------------------";
+endef
+
+all: example10-cmd $(src_dir)_print
+
+example10-cmd:
+	@echo "===4.2.1 Variable suffix replacement, such as replacing .o with .c:==="; \
+	echo "[foo]:$(foo)\n[bar_1]:$(bar_1)\n[bar_2]:$(bar_2)"; \
+	echo "-----------------------------------------------------------------\n"; \
+	echo "===4.2.2 Example of treating variable values as variables again in a makefile:==="; \
+	echo "[x_0]:$(x_0)\t[y_0]:$(y_0)\t[a_0]:$(a_0)"; \
+	echo "[x_1]:$(x_1)\t[y_1]:$(y_1)\t[a_1]:$(a_1)"; \
+	echo "[a_2]:$(a_2)\t[b_2]:$(b_2)\t[all_2]:$(all_2)"; \
+	echo "-----------------------------------------------------------------"; \
+	echo "[bar_22]:$(bar_22)"; \
+	echo "[foo_define_do_sort]:$(foo_define_do_sort)\n[foo_undefine_do_sort]:$(foo_undefine_do_sort)"; \
+	echo "[foo_test_fun_test]:$(foo_test_fun_test)\n[foo_test_sort]:$(foo_test_sort)"; \
+	echo "-----------------------------------------------------------------";
+
+clean:
+	@echo "[example10]:clean"
+
+$(eval $(call print_template,$(src_dir)))

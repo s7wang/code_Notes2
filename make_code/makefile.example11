@@ -1,0 +1,32 @@
+# filename: makefile.example11
+
+override foo = foo
+foo = oooo
+bar =barrrrrr
+
+define MY_VAR
+line1
+line2
+line3
+endef
+
+define two-lines
+echo fooooooo
+echo $(bar)
+endef
+
+all: 
+	@echo "-----------------------------------------------------------------";
+	@echo "[foo]: $(foo)"
+	@echo "-----------------------------------------------------------------";
+	@echo "[MY_VAR]:"
+	@$(foreach line,$(MY_VAR),echo $(line);)
+	@echo "-----------------------------------------------------------------";
+	@$(two-lines)
+	@echo "-----------------------------------------------------------------";
+	$(MAKE) -C example11_dir
+	
+.PHONY: clean
+clean:
+	@echo "[example11]:clean";
+	$(MAKE) clean  -C example11_dir

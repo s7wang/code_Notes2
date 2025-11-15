@@ -106,3 +106,39 @@ clean:
 # .y 文件是 Yacc（Yet Another Compiler Compiler）语法文件。
 # 它是一种专门用于描述 语法规则（Parser） 的文件格式，用来生成 语法分析器（parser）。
 ~~~
+
+## makefile.example9
+
+Examples of variables in makefile.
+
+The usage of "=" ":=" "?=".
+
+| 操作需求             | 推荐用法 |
+| ---------------- | ---- |
+| 内容依赖其他变量，且需动态更新  | `=`  |
+| 内容需要立即展开，不希望后面变化 | `:=` |
+| 提供默认值，可被命令行覆盖    | `?=` |
+| 给变量追加内容          | `+=` |
+
+## makefile.example10
+
+4.2.1 Variable suffix replacement, such as replacing .o with .c
+
+AND
+
+4.2.2 Example of treating variable values as variables again in a makefile.
+
+## makefile.example11
+
+Usage of "override" target variables and multiline variables.
+
+## makefile.example12
+
+Usage of Pattern variable in a makefile.
+
+~~~makefile
+%.o : CFLAGS = -O
+# 同样，模式变量的语法和“目标变量”一样：
+<pattern ...> : <variable-assignment>
+<pattern ...> : override <variable-assignment>
+~~~

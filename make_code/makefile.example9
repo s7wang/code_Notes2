@@ -1,0 +1,56 @@
+# filename: makefile.example9
+foo = $(bar)
+bar = $(ugh)
+ugh = Huh?
+CFLAGS = $(include_dirs) -O
+include_dirs = -Ifoo -Ibar
+
+# Error Attempt: Do Not Open
+# B = Btest
+# A = $(B)
+# B = $(A)
+
+# Usage of :=
+x := foo
+y := $(x) bar
+x := later
+
+y_1 := $(x_1) bar
+x_1 := foo
+
+# Usage of ?=
+FOO ?= bar_FOO
+FOO ?= bar_FOO_2
+
+# Usage of +=
+objects_1 = main.o foo.o bar.o utils.o
+objects_1 += another.o
+
+objects_2 = main.o foo.o bar.o utils.o
+objects_2 := $(objects_2) another.o
+
+variable_1 := value
+variable_1 += more
+
+all:
+	@echo "-----------------------------------------------------------------"; \
+	echo "[foo]:$(foo)"; \
+	echo "[CFLAGS]:$(CFLAGS)"; 
+# Error Attempt: Do Not Open
+# 	@echo "[B]:$(B)"; \
+# 	echo "[A]:$(A)"; 
+	@echo "-----------------------------------------------------------------"; \
+	echo "[x]:$(x)"; \
+	echo "[y]:$(y)"; 
+	@echo "[x_1]:$(x_1)"; \
+	echo "[y_1]:$(y_1)"; 
+	@echo "-----------------------------------------------------------------"; \
+	echo "[FOO]:$(FOO)"
+
+	@echo "-----------------------------------------------------------------"; \
+	echo "[objects_1]:$(objects_1)\n[objects_2]:$(objects_2)"; \
+	echo "[variable_1]:$(variable_1)"; \
+	echo "-----------------------------------------------------------------"
+
+clean:
+	echo "[example9]:clean"
