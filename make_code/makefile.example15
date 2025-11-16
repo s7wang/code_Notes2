@@ -1,0 +1,60 @@
+# filename: makefile.example15
+# Use case for file name operation function in Makefile.
+
+# Use case of dir function
+dir_input = src/foo.c text.g
+dir_res = $(dir $(dir_input))
+ 
+# Use case of notdir function
+notdir_input = src/foo.c text.g
+notdir_res = $(notdir $(notdir_input))
+
+# Use case of suffix function
+suffix_input = src/foo.c example11_dir/defs.h text.g
+suffix_res = $(suffix $(suffix_input))
+
+# Use case of basename function
+basename_input = src/foo.c example11_dir/defs.h text.g
+basename_res = $(basename $(basename_input))
+
+# Use case of addsuffix function
+addsuffix_input = foo bar
+addsuffix_res = $(addsuffix .c,$(addsuffix_input))
+
+# Use case of join function
+join_list1 = aaa bbb
+join_list2 = 111 222 333
+join_res = $(join $(join_list1), $(join_list2)) 
+
+all: dir-case notdir-case suffix-case basename-case addsuffix-case join-case
+
+dir-case:
+	@echo "==========Use case of dir function:=============="; \
+	echo "[dir_input]:$(dir_input)\t[dir_res]:$(dir_res)"; \
+	echo "-------------------------------------------------"; 
+notdir-case:
+	@echo "==========Use case of notdir function:=============="; \
+	echo "[notdir_input]:$(notdir_input)\t[notdir_res]:$(notdir_res)"; \
+	echo "-------------------------------------------------"; 
+suffix-case:
+	@echo "==========Use case of suffix function:=============="; \
+	echo "[suffix_input]:$(suffix_input)\t[suffix_res]:$(suffix_res)"; \
+	echo "-------------------------------------------------"; 
+basename-case:
+	@echo "==========Use case of basename function:=============="; \
+	echo "[basename_input]:$(basename_input)\t[basename_res]:$(basename_res)"; \
+	echo "-------------------------------------------------"; 
+addsuffix-case:
+	@echo "==========Use case of addsuffix function:=============="; \
+	echo "[addsuffix_input]:$(addsuffix_input)\t[addsuffix_res]:$(addsuffix_res)"; \
+	echo "-------------------------------------------------"; 
+join-case:
+	@echo "==========Use case of join function:=============="; \
+	echo "[join_list1]:$(join_list1)\t[join_list2]:$(join_list2)"; \
+	echo "[join_res]:$(join_res)"; \
+	echo "-------------------------------------------------"; 
+
+.PHONY: clean
+clean:
+	@echo "[example15]:clean"
+	

@@ -1,0 +1,88 @@
+# filename: makefile.example14
+# Use case of subst function
+comma:= ,
+empty:=
+space:= $(empty) $(empty)
+foo:= a b c
+bar:= $(subst $(space),$(comma),$(foo))
+
+# Use case of patsubst function
+patsubst_input = "x.c.c bar.c"
+patsubst_res = $(patsubst %.c,%.o,$(patsubst_input))
+
+# Use case of strip function
+strip_input = "a b c "
+strip_res = $(strip $(strip_input))
+
+# Use case of findstring function
+findstring_input = "a b c"
+findstring_target1 = a
+findstring_target2 = e
+findstring_res1 = $(findstring $(findstring_target1),$(findstring_input))
+findstring_res2 = $(findstring $(findstring_target2),$(findstring_input))
+
+# Use case of filter and filter-out function
+sources_filter := foo.c bar.c baz.s ugh.h
+filter_res = $(filter %.c %.s,$(sources_filter))
+
+objects_filter-out = main1.o foo.o main2.o bar.o
+mains = main1.o main2.o
+filter-out_res = $(filter-out $(mains),$(objects_filter-out))
+
+# Use case of sort function
+sort_input = foo bar lose
+sort_res = $(sort $(sort_input))
+
+# Use case of word and wordlist function
+world_input := foo bar baz
+index_2 = 2
+index_3 = 3
+word_res = $(word $(index_2), $(world_input))
+wordlist_res = $(wordlist $(index_2), $(index_3), $(world_input))
+
+# Use case of words and firstword  function
+words_res = $(words $(world_input))
+firstword_res = $(firstword $(world_input))
+
+all: subst-case patsubst-case strip-case findstring-case filter-case \
+	sort-case world-case worlds-case
+
+subst-case:
+	@echo "==========Use case of subst function:=============="; \
+	echo "[foo]:$(foo)\t[bar]:$(bar)"; \
+	echo "-------------------------------------------------"; 
+patsubst-case:
+	@echo "==========Use case of patsubst function:=============="; \
+	echo "[patsubst_input]:$(patsubst_input)\t[patsubst_res]:$(patsubst_res)"; \
+	echo "-------------------------------------------------"; 
+strip-case:
+	@echo "==========Use case of strip function:=============="; \
+	echo "[strip_input]:$(strip_input).\t[strip_res]:$(strip_res)."; \
+	echo "-------------------------------------------------"; 
+findstring-case:
+	@echo "==========Use case of findstring function:=============="; \
+	echo "[findstring_input]:$(findstring_input)\t[findstring_target1]:$(findstring_target1)\t[findstring_target2]:$(findstring_target2)"; \
+	echo "[findstring_res1]:$(findstring_res1)\n[findstring_res2]:$(findstring_res2)"; \
+	echo "-------------------------------------------------"; 
+filter-case:
+	@echo "==========Use case of filter and filter-out function:=============="; \
+	echo "[sources_filter]:$(sources_filter)\t[filter_res]:$(filter_res)"; \
+	echo "[objects_filter-out]:$(objects_filter-out)\t[mains]:$(mains)\t[filter-out_res]:$(filter-out_res)"; \
+	echo "-------------------------------------------------"; 
+sort-case:
+	@echo "==========Use case of sort function:=============="; \
+	echo "[sort_input]:$(sort_input).\t[sort_res]:$(sort_res)."; \
+	echo "-------------------------------------------------"; 
+world-case:
+	@echo "==========Use case of word and wordlist function:=============="; \
+	echo "[world_input]:$(world_input)\t[index_2]:$(index_2)\t[index_3]:$(index_3)"; \
+	echo "[word_res]:$(word_res)\n[wordlist_res]:$(wordlist_res)"; \
+	echo "-------------------------------------------------"; 
+worlds-case:
+	@echo "==========Use case of words and firstword  function:=============="; \
+	echo "[world_input]:$(world_input)"; \
+	echo "[words_res]:$(words_res)\n[firstword_res]:$(firstword_res)"; \
+	echo "-------------------------------------------------"; 
+.PHONY: clean
+clean:
+	@echo "[example14]:clean"

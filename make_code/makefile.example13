@@ -1,0 +1,67 @@
+# filename: makefile.example13
+# The syntax of conditional judgment in Makefile.(ifeq, ifneq, ifdef, ifndef)
+a0 = iftest
+b0 = iftest
+c0 = iftest11
+
+# Usage of ifeq and ifneq:
+ifeq ($(a0), $(b0))
+re_a0_eq_b0 = "yes"
+else
+re_a0_eq_b0 = "no"
+endif
+
+ifeq ($(a0), $(c0))
+re_a0_eq_c0 = "yes"
+else
+re_a0_eq_c0 = "no"
+endif
+
+ifneq ($(a0), $(b0))
+re_a0_neq_b0 = "yes"
+else
+re_a0_neq_b0 = "no"
+endif
+
+ifneq ($(a0), $(c0))
+re_a0_neq_c0 = "yes"
+else
+re_a0_neq_c0 = "no"
+endif
+#-----------------------------------------
+# Usage of ifdef and ifndef:
+sss=1
+ifdef sss
+sss_is_defined = "yes"
+else
+sss_is_defined = "no"
+endif
+
+xxx=
+ifndef xxx
+xxx_is_not_defined = "yes"
+else
+xxx_is_not_defined = "no"
+endif
+
+all:
+	@echo "==========Usage of ifeq and ifneq:=============="; \
+	echo "[a0]:$(a0)\t[b0]:$(b0)\t[c0]:$(c0)"; \
+	echo "-------------------------------------------------"; \
+	echo "[re_a0_eq_b0]:$(re_a0_eq_b0)."; \
+	echo "[re_a0_eq_c0]:$(re_a0_eq_c0)."; \
+	echo "-------------------------------------------------"; \
+	echo "[re_a0_neq_b0]:$(re_a0_neq_b0)."; \
+	echo "[re_a0_neq_c0]:$(re_a0_neq_c0)."; \
+	echo "-------------------------------------------------";
+	
+	@echo "==========Usage of ifdef and ifndef:=============="; \
+	echo "[sss]:$(sss)\t[xxx]:$(xxx)"; \
+	echo "-------------------------------------------------"; \
+	echo "[sss_is_defined]:$(sss_is_defined)."; \
+	echo "[xxx_is_not_defined]:$(xxx_is_not_defined)."; \
+	echo "-------------------------------------------------";
+	
+.PHONY: clean
+clean:
+	@echo "[example13]:clean"
