@@ -3,7 +3,7 @@
 #==========================
 
 # 定义所有 example 数字
-EXAMPLES := $(shell seq 15)
+EXAMPLES := $(shell seq 16)
 
 # 声明所有 exampleX 和 exampleX-clean 为伪目标
 .PHONY: $(foreach n,$(EXAMPLES),example$(n) example$(n)-clean)

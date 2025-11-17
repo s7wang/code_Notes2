@@ -264,7 +264,7 @@ $(firstword <text>)
 
 ## makefile.example15
 
-Use case for file name operation function in Makefile.
+Use case for file name operation function in Makefile.  Part 1.
 
 **dir 取目录函数**
 
@@ -366,3 +366,68 @@ $(join aaa bbb , 111 222 333) # 返回值是“aaa111 bbb222 333”。
 
 ## makefile.example16
 
+Use case for file name operation function in Makefile.  Part 2.
+
+**foreach**
+
+~~~makefile
+$(foreach <var>,<list>,<text>)
+~~~
+------------
+**if**
+
+~~~makefile
+$(if <condition>,<then-part>)
+# 或是
+$(if <condition>,<then-part>,<else-part>)
+~~~
+------------
+
+**call**
+
+~~~makefile
+$(call <expression>,<parm1>,<parm2>,<parm3>...)
+~~~
+-------------
+
+**origin**
+
+~~~makefile
+$(origin <variable>)
+~~~
+
+origin函数的返回值:
+
+| 返回值           | 含义                                             | 示例                                                         |
+| ---------------- | ------------------------------------------------ | ------------------------------------------------------------ |
+| **undefined**    | `<variable>` 从未被定义过                        | `FOO 未定义 → $(origin FOO)` 返回 `undefined`                |
+| **default**      | 变量是 make 内置的默认变量（如 `CC`、`MAKE` 等） | `CC` 未在 Makefile 中修改 → `$(origin CC)` 返回 `default`    |
+| **environment**  | 变量来自环境变量，且未使用 `-e` 覆盖             | shell 中 `export PATH=/bin` → `$(origin PATH)` 返回 `environment` |
+| **file**         | 变量直接在 Makefile 中定义                       | 在 Makefile 里 `FOO = bar` → `$(origin FOO)` 返回 `file`     |
+| **command line** | 变量由命令行输入定义                             | `make FOO=bar` → `$(origin FOO)` 返回 `command line`         |
+| **override**     | 变量由 `override` 指令重新定义                   | Makefile：`override CC = clang` → `$(origin CC)` 返回 `override` |
+| **automatic**    | 自动变量，如 `$@`、 `$^`、 `$<` 等               | 在规则命令中 `$(origin $@)` 返回 `automatic`                 |
+
+-------------------
+
+**shell**
+
+~~~makefile
+contents := $(shell cat foo)
+files := $(shell echo *.c)
+~~~
+--------------
+
+**error && warning**
+
+~~~makefile
+$(error <text ...>)
+~~~
+
+~~~makefile
+$(warning <text ...>)
+# 这个函数很像error函数，只是它并不会让make退出，只是输出一段警告信息，而make继续执行。
+~~~
+----------------
+
+## makefile.example17

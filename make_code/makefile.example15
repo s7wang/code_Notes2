@@ -1,5 +1,5 @@
 # filename: makefile.example15
-# Use case for file name operation function in Makefile.
+# Use case for file name operation function in Makefile. Part 1.
 
 # Use case of dir function
 dir_input = src/foo.c text.g

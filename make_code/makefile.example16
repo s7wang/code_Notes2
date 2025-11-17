@@ -1,0 +1,69 @@
+# filename: makefile.example16
+# Use case for file name operation function in Makefile.  Part 2.
+
+# Use case of foreach function
+names := a b c d
+files := $(foreach n,$(names),$(n).o)
+
+# Use case of if function
+FOO = hello
+BAR := $(if $(FOO),FOO is not empty)
+
+FOO2 =
+BAR2 := $(if $(FOO2),FOO2 is not empty, FOO2 is empty)
+
+# Use case of reverse function
+reverse = $(2) $(1)
+reverse_res = $(call reverse,a,b)
+
+# Use case of origin function
+FOOO = value_from_file
+override CC = clang
+
+undef_orign = $(origin ZOO)
+FOOO_origin = $(origin FOOO)
+BAR3_origin = $(origin BAR3)
+CC_origin  = $(origin CC)
+AUTO_origin = $(origin @)
+
+# Use case of error and warning function
+# 示例一：在变量`ERROR_001`定义了后执行时产生error调用
+ifdef ERROR_001
+$(error error is $(ERROR_001))
+endif
+# 示例二：在err被执行时才发生error调用。
+ERR = $(error 77777 found an error!~~~)
+
+WARNING = $(warning *****This is a wwwwarningggg.******)
+
+all: foreach-case if-case reverse-case origin-case warninggg # err
+
+foreach-case:
+	@echo "==========Use case of foreach function:=============="; \
+	echo "[names]:$(names)\t[files]:$(files)"; \
+	echo "-------------------------------------------------"; 
+if-case:
+	@echo "==========Use case of if function:=============="; \
+	echo "[FOO]:$(FOO)|\t[BAR]:$(BAR)"; \
+	echo "[FOO2]:$(FOO2)|\t[BAR2]:$(BAR2)"; \
+	echo "-------------------------------------------------"; 
+reverse-case:
+	@echo "==========Use case of reverse function:=============="; \
+	echo "[reverse]:$(reverse)\t[reverse_res]:$(reverse_res)"; \
+	echo "-------------------------------------------------"; 
+origin-case:
+	@echo "==========Use case of origin function:=============="; \
+	echo "[ZOO]:$(ZOO)|\t\t[undef_orign]:$(undef_orign)"; \
+	echo "[FOOO]:$(FOOO)|\t[FOOO_origin]:$(FOOO_origin)"; \
+	echo "[BAR3]:$(BAR3)|\t[BAR3_origin]:$(BAR3_origin)"; \
+	echo "[CC]:$(CC)|\t[CC_origin]:$(CC_origin)"; \
+	echo "[\$$@]:@|\t\t[AUTO_origin]:$(AUTO_origin)"; \
+	echo "-------------------------------------------------";
+
+.PHONY: clean err warninggg
+clean:
+	@echo "[example16]:clean"
+
+err: ; $(ERR)
+
+warninggg: ; $(WARNING)
