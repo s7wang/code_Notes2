@@ -1,0 +1,26 @@
+# filename: makefile.example17
+# the exit code of make
+# 0: Indicates successful execution;
+# 1: If any error occurs during the make runtime, return 1;
+# 2: If the "q" option is used with make and make determines that no targets need updating, return 2
+
+# Other usage of make parameters
+
+all:  exit-code-case example17-case
+
+exit-code-case:
+	@echo "=======================exit-code:================"; 
+	@make -f example17_dir/success.mk ; echo "success_code = $$?"; 
+	@echo "-------------------------------------------------"; 
+	@make -C example17_dir -f fail.mk 2>&1; code=$$?; echo "fail_code = $$code"; 
+	@echo "-------------------------------------------------"; 
+	@make -C example17_dir -f Makefile -q ; echo "quite_code = $$?";
+	@echo "-------------------------------------------------"; 
+example17-case:
+	@echo "=======================example17-case:================";
+	make -C example17_dir all;
+	@echo "-------------------------------------------------";
+.PHONY: clean
+clean:
+	@echo "[example17]:clean"
+	make -C example17_dir clean

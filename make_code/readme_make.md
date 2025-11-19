@@ -2,6 +2,8 @@
 
 A description of make_code directory.
 
+note URL: https://github.com/s7wang/Notes2/tree/main/make_notes
+
 ## makefile.example1
 
 The basic writing rules for a makefile are to use `make example1` to generate an. o file in the src directory.
@@ -431,3 +433,13 @@ $(warning <text ...>)
 ----------------
 
 ## makefile.example17
+
+the exit code of make
+
+> 0: Indicates successful execution;
+>
+> 1: If any error occurs during the make runtime, return 1;
+>
+> 2: If the "q" option is used with make and make determines that no targets need updating, return 2
+
+Other usage of make parameters
