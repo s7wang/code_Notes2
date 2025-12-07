@@ -1,5 +1,5 @@
 #driver_code/Makefile
-options := HelloWorld get_pid_kmod
+options := HelloWorld get_pid_kmod scull
 
 .DEFAULT: help
 .PHONY: help all $(options) clean $(options)-clean
@@ -9,6 +9,7 @@ help:
 	@echo "[driver_code] Usage:";
 	@echo "\tmake HelloWorld			A simple Hello World kernel module.";
 	@echo "\tmake get_pid_kmod			Kernel module to print current process information.";
+	@echo "\tmake scull					The bare scull char module.";
 	@echo "--------------------------------------------------------------------------------------------";
 	@echo "\tmake all					Compile all of the above.";
 	@echo "\tmake clean					Clean all of the above.";
@@ -28,5 +29,11 @@ get_pid_kmod:
 
 get_pid_kmod-clean:
 	for dir in get_pid_kmod; do $(MAKE) -C $$dir clean; done
+
+scull:
+	for dir in ldd3-master/scull; do $(MAKE) -C $$dir; done
+
+scull-clean:
+	for dir in ldd3-master/scull; do $(MAKE) -C $$dir clean; done
 
 clean: $(options)-clean
