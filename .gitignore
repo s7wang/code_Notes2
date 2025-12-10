@@ -6,6 +6,8 @@
 *.y
 *.a
 *.so
+test.c
+test
 
 # 忽略编译生成的目录
 build/
